@@ -1,15 +1,15 @@
-    const messages = [
-        "Bugün seni görmek güzel bir sürpriz oldu. 🙂",
-        "Gülümsemen gerçekten çok hoş.",
-        "Konuşmak iyi geldi, teşekkür ederim.",
-        "Seni tanımak keyifli olacak gibi duruyor.",
-        "Günümde küçük bir güzellik oldun diyebilirim.",
-        "Enerjin çok pozitif hissettiriyor.",
-        "Sohbetin gerçekten samimi.",
-        "Seni görünce modum yükseliyor.",
-        "Şu ana kadarki karşılaşmalarımız hep güzel denk geldi.",
-        "Sade ama hoş bir tarzın var."
-    ];
+const messages = [
+    "Seni görmek günümün temposunu bir anda değiştiriyor. 🙂✨",
+    "Sabah seni görebilme ihtimali bile güzel hissettiriyor. ☀️",
+    "Konuşmalarımız rahatlatıyor, iyi geliyor. 🌿",
+    "Her karşılaşmada içimde hafif bir heyecan oluyor, hoşuma gidiyor. 💫",
+    "Sende sakin ve güzel bir enerji var. 🌼",
+    "Seni tanımaya devam etmek güzel olacak gibi. 🙂🌟",
+    "Kısacık bir selam bile modumu toparlıyor. ☺️",
+    "Sohbetin doğal, bu da insanı rahat hissettiriyor. 🌸",
+    "Sana denk gelmek günün güzel anlarından biri oluyor. 🎈"
+];
+
 
     let currentIndex = 0;
 
@@ -89,3 +89,4 @@ window.addEventListener('DOMContentLoaded', () => {
     createHearts();
     setInterval(createHearts, 5000); // yeni kalp grubu daha seyrek gelsin
 });
+
