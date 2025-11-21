@@ -5,6 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzle Oyunu</title>
     <style>
+/* Responsive Tasarım */
+@media (max-width: 1024px) {
+    .game-container {
+        padding: 25px;
+    }
+
+    .puzzle-board {
+        max-width: 400px;
+        grid-gap: 4px;
+    }
+
+    .puzzle-piece {
+        font-size: 1.3em;
+    }
+
+    .puzzle-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .info-box {
+        margin: 5px 0;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .difficulty-btn {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        padding: 20px;
+    }
+
+    .puzzle-board {
+        max-width: 300px;
+        grid-gap: 3px;
+    }
+
+    .puzzle-piece {
+        font-size: 1.1em;
+    }
+
+    .game-button {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 15px;
+    }
+
+    .puzzle-board {
+        max-width: 250px;
+    }
+
+    .puzzle-piece {
+        font-size: 1em;
+    }
+
+    .puzzle-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .info-box {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .difficulty-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+}
+
+
+        
         :root {
             --primary-color: #e91e63;
             --secondary-color: #c2185b;
@@ -689,3 +784,4 @@
 </body>
 
 </html>
+
