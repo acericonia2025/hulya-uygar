@@ -264,19 +264,15 @@
     </div>
 
     <script>
-    // GOOGLE APPS SCRIPT URL - YENİ URL'NİZİ BURAYA YAPIŞTIRIN
-    let GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzC-fLB9oeX1Qo2XCySdgc_lNeLwoPN030x2SuJjlDx0A2sw2xKDkOYPW8zriGqwdkRMw/exec';
+    // GOOGLE APPS SCRIPT URL
+    let GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby45E2rxCUGWoZrTxJM-jRp9wwMsZgcNy2P186W_1qZA0xpHnDDUsuW1jEEv9HthEEKyw/exec';
 
-    
-    // JSONP ile mesaj gönderme - DEBUG EKLİ
+    // JSONP ile mesaj gönderme
     function sendMessage(mesaj, callback) {
         const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
         const script = document.createElement('script');
         
-        console.log('Callback oluşturuldu:', callbackName);
-        
         window[callbackName] = function(data) {
-            console.log('Callback çalıştı! Data:', data);
             delete window[callbackName];
             document.body.removeChild(script);
             callback(data);
@@ -284,7 +280,6 @@
         
         // Timeout ekle (10 saniye)
         const timeout = setTimeout(() => {
-            console.log('Timeout: Callback çalışmadı');
             delete window[callbackName];
             if (document.body.contains(script)) {
                 document.body.removeChild(script);
@@ -299,11 +294,9 @@
                    '?callback=' + callbackName + 
                    '&mesaj=' + encodeURIComponent(mesaj);
         
-        console.log('URL:', url);
         script.src = url;
         
         script.onerror = function() {
-            console.log('Script load error!');
             clearTimeout(timeout);
             callback({success: false, error: 'Script yüklenemedi'});
         };
@@ -311,15 +304,13 @@
         document.body.appendChild(script);
     }
 
-    // Form gönderim işlemi - DEBUG EKLİ
+    // Form gönderim işlemi
     document.getElementById('messageForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
         const submitBtn = document.getElementById('submitBtn');
         const resultDiv = document.getElementById('result');
         const mesaj = document.getElementById('mesajInput').value.trim();
-
-        console.log('Form gönderildi, mesaj:', mesaj);
 
         if (!mesaj) {
             resultDiv.innerHTML = '<div class="error-message">Mesaj boş olamaz! 💔</div>';
@@ -332,22 +323,18 @@
 
         // Mesajı gönder
         sendMessage(mesaj, function(response) {
-            console.log('SendMessage callback:', response);
-            
             if (response.success) {
                 resultDiv.innerHTML = `
                     <div class="success-message">
-                        <div style="font-size: 3em; margin-bottom: 10px;">💖</div>
                         <div style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">
-                            Mesajın bana ulaştı!
+                            Mesajın bana ulaştı! 💖
                         </div>
                         <div style="opacity: 0.8; font-size: 0.9em;">
-                            Bu mesaj kalbime ve veritabanına kaydedildi 📝
+                            Bu mesaj kalbime ve veritabanına kaydedildi
                         </div>
                     </div>
                 `;
                 document.getElementById('mesajInput').value = '';
-                createHearts();
             } else {
                 resultDiv.innerHTML = `<div class="error-message">Hata: ${response.error || 'Mesaj gönderilemedi 😔'}</div>`;
             }
@@ -359,28 +346,16 @@
 
     // Sayfa yüklendiğinde
     document.addEventListener('DOMContentLoaded', function() {
-        createHearts();
-        setInterval(createHearts, 8000);
-        
-        // Test butonu ekle (isteğe bağlı)
         const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = ``;
+        resultDiv.innerHTML = `
+            <div style="background: rgba(0,150,255,0.2); padding: 15px; border-radius: 10px; border: 1px solid #007bff;">
+                <i class="fa-solid fa-check-circle"></i> 
+                <strong>Sistem Hazır!</strong> Mesajınızı yazıp gönderin! 💖
+            </div>
+        `;
     });
-
-    // Test fonksiyonu
-    function testConnection() {
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = '<div class="error-message">Test ediliyor... ⚡</div>';
-        
-        sendMessage('Test mesajı - ' + new Date().toLocaleTimeString(), function(response) {
-            if (response.success) {
-                resultDiv.innerHTML = '<div class="success-message">✅ Bağlantı çalışıyor! Mesaj Sheets\'e kaydedildi.</div>';
-            } else {
-                resultDiv.innerHTML = `<div class="error-message">❌ Hata: ${response.error}</div>`;
-            }
-        });
-    }
 </script>
 </body>
 
 </html>
+
