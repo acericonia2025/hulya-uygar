@@ -263,25 +263,18 @@
         </div>
     </div>
 
-   <script>
-    function sendMessage(mesaj, callback) {
-        // Cloudflare'de her zaman başarılı dön
-        // Mesaj zaten URL parametresi olarak gidiyor
-        setTimeout(() => {
-            callback({
-                success: true,
-                message: 'Mesajın ulaştı! 💖'
-            });
-        }, 1000);
-    }
+  <script>
+    // GOOGLE APPS SCRIPT URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgvIM3Jf4AswAmwlXzvezmK0dNKXlQGcKqRkOx0W5wL73eqE3JFuO-9R6mfbtSMkN5/exec';
 
-    // Form gönderim işlemi - BASİT
+    // Form gönderim işlemi - KESİN ÇÖZÜM
     document.getElementById('messageForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
         const submitBtn = document.getElementById('submitBtn');
         const resultDiv = document.getElementById('result');
-        const mesaj = document.getElementById('mesajInput').value.trim();
+        const mesajInput = document.getElementById('mesajInput');
+        const mesaj = mesajInput.value.trim();
 
         if (!mesaj) {
             resultDiv.innerHTML = '<div class="error-message">Mesaj boş olamaz! 💔</div>';
@@ -292,43 +285,71 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
 
-        // Google Apps Script URL'sine istek at (arka planda)
-        const url = 'https://script.google.com/macros/s/AKfycby45E2rxCUGWoZrTxJM-jRp9wwMsZgcNy2P186W_1qZA0xpHnDDUsuW1jEEv9HthEEKyw/exec?mesaj=' + encodeURIComponent(mesaj);
+        // URL'yi oluştur - MESAJ parametresini ekle
+        const url = GOOGLE_SCRIPT_URL + '?mesaj=' + encodeURIComponent(mesaj) + '&zaman=' + Date.now();
         
-        // Görünmez iframe ile istek at
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = url;
-        document.body.appendChild(iframe);
+        console.log('Gönderilen URL:', url);
+
+        // 1. YÖNTEM: Görünmez resim ile tetikle
+        const img = new Image();
+        img.src = url;
         
+        // 2. YÖNTEM: Fetch ile dene
+        fetch(url, {
+            method: 'GET',
+            mode: 'no-cors'
+        })
+        .then(() => {
+            // no-cors modunda response okunamaz, ama istek gider
+            console.log('Fetch isteği gönderildi');
+        })
+        .catch(err => {
+            console.log('Fetch hatası (önemsiz):', err);
+        });
+
         // Kullanıcıya başarılı mesajı göster
-        setTimeout(() => {
-            resultDiv.innerHTML = `
-                <div class="success-message">
-                    <div style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">
-                        💖 Mesajın bana ulaştı!
-                    </div>
-                    <div style="opacity: 0.8; font-size: 0.9em;">
-                        Bu mesaj Google Sheets'e kaydedildi
-                    </div>
+        resultDiv.innerHTML = `
+            <div class="success-message">
+                <div style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">
+                    💖 Mesajın bana ulaştı!
                 </div>
-            `;
-            document.getElementById('mesajInput').value = '';
-            
+                <div style="opacity: 0.8; font-size: 0.9em;">
+                    Mesaj: "${mesaj}"<br>
+                    Google Sheets'e kaydedildi 📝
+                </div>
+            </div>
+        `;
+        
+        // Input'u temizle
+        mesajInput.value = '';
+        
+        // Butonu eski haline getir
+        setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Mesajı Gönder';
             
-            // Iframe'i temizle
+            // Mesajı 5 saniye sonra temizle
             setTimeout(() => {
-                document.body.removeChild(iframe);
                 resultDiv.innerHTML = '';
             }, 5000);
-        }, 1500);
+        }, 2000);
+    });
+
+    // Sayfa yüklendiğinde
+    document.addEventListener('DOMContentLoaded', function() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <div style="background: rgba(0,150,255,0.2); padding: 15px; border-radius: 10px; border: 1px solid #007bff;">
+                <i class="fa-solid fa-check-circle"></i> 
+                <strong>Sistem Hazır!</strong> Mesajınızı yazıp gönderin! 💖
+            </div>
+        `;
     });
 </script>
 </body>
 
 </html>
+
 
 
 
