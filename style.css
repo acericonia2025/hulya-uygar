@@ -1,0 +1,177 @@
+        :root {
+            --primary-color: #e91e63;
+            --secondary-color: #c2185b;
+            --text-color: #ffcdd2;
+            --bg-gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* -------------------------- */
+        /*      NAVBAR - EKLENDİ      */
+        /* -------------------------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            padding: 12px 0;
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .navbar a {
+            margin: 0 20px;
+            color: var(--text-color);
+            font-size: 1.2em;
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+
+        /* Normal sayfa stillerine devam */
+        .container {
+            background-color: rgba(0, 0, 0, 0.65);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            margin: 90px 20px 20px; /* NAVBAR için üst boşluk verildi */
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: clamp(2em, 8vw, 3em);
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.5);
+        }
+
+         .story-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.5);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .message-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+        }
+
+        .message {
+            font-size: 1.3em;
+            opacity: 0;
+            transition: 0.7s;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
+        .counter {
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* ❤️ TARİH HESAPLAMA KUTUSU – EKLENDİ */
+        .date-box {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            font-size: 1.3em;
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+   #floatingHearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1; /* Arka planda kalması için */
+}
+
+.floating-heart {
+    position: absolute;
+    top: 100vh;
+    font-size: 2rem;
+    opacity: 0.8;
+    animation: rise 5s linear forwards;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+    }
+}
